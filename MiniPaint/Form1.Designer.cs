@@ -41,9 +41,10 @@
             // 
             // button1
             // 
-            button1.Location = new Point(12, 12);
+            button1.Location = new Point(10, 9);
+            button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(94, 29);
+            button1.Size = new Size(82, 22);
             button1.TabIndex = 0;
             button1.Text = "Прямая";
             button1.UseVisualStyleBackColor = true;
@@ -51,9 +52,10 @@
             // 
             // button2
             // 
-            button2.Location = new Point(112, 12);
+            button2.Location = new Point(98, 9);
+            button2.Margin = new Padding(3, 2, 3, 2);
             button2.Name = "button2";
-            button2.Size = new Size(150, 29);
+            button2.Size = new Size(131, 22);
             button2.TabIndex = 1;
             button2.Text = "Прямоугольник";
             button2.UseVisualStyleBackColor = true;
@@ -61,9 +63,10 @@
             // 
             // button3
             // 
-            button3.Location = new Point(268, 13);
+            button3.Location = new Point(234, 10);
+            button3.Margin = new Padding(3, 2, 3, 2);
             button3.Name = "button3";
-            button3.Size = new Size(94, 29);
+            button3.Size = new Size(82, 22);
             button3.TabIndex = 2;
             button3.Text = "Круг";
             button3.UseVisualStyleBackColor = true;
@@ -71,9 +74,10 @@
             // 
             // button4
             // 
-            button4.Location = new Point(400, 13);
+            button4.Location = new Point(350, 10);
+            button4.Margin = new Padding(3, 2, 3, 2);
             button4.Name = "button4";
-            button4.Size = new Size(94, 29);
+            button4.Size = new Size(82, 22);
             button4.TabIndex = 3;
             button4.Text = "Цвет";
             button4.UseVisualStyleBackColor = true;
@@ -83,18 +87,20 @@
             // 
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "1px", "2px", "3px", "4px", "5px", "6px", "7px", "8px", "9px", "10px" });
-            comboBox1.Location = new Point(637, 13);
+            comboBox1.Location = new Point(557, 10);
+            comboBox1.Margin = new Padding(3, 2, 3, 2);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
+            comboBox1.Size = new Size(133, 23);
             comboBox1.TabIndex = 4;
             comboBox1.Text = "1px";
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // button5
             // 
-            button5.Location = new Point(500, 12);
+            button5.Location = new Point(438, 9);
+            button5.Margin = new Padding(3, 2, 3, 2);
             button5.Name = "button5";
-            button5.Size = new Size(94, 29);
+            button5.Size = new Size(82, 22);
             button5.TabIndex = 5;
             button5.Text = "<-";
             button5.UseVisualStyleBackColor = true;
@@ -104,17 +110,18 @@
             // 
             label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
-            label1.Location = new Point(-2, 431);
+            label1.Location = new Point(-2, 323);
             label1.Name = "label1";
-            label1.Size = new Size(29, 20);
+            label1.Size = new Size(22, 15);
             label1.TabIndex = 6;
             label1.Text = "0 0";
             // 
             // button6
             // 
-            button6.Location = new Point(12, 66);
+            button6.Location = new Point(10, 50);
+            button6.Margin = new Padding(3, 2, 3, 2);
             button6.Name = "button6";
-            button6.Size = new Size(94, 29);
+            button6.Size = new Size(82, 22);
             button6.TabIndex = 7;
             button6.Text = "Сохранить";
             button6.UseVisualStyleBackColor = true;
@@ -122,9 +129,10 @@
             // 
             // button7
             // 
-            button7.Location = new Point(138, 66);
+            button7.Location = new Point(121, 50);
+            button7.Margin = new Padding(3, 2, 3, 2);
             button7.Name = "button7";
-            button7.Size = new Size(94, 29);
+            button7.Size = new Size(82, 22);
             button7.TabIndex = 8;
             button7.Text = "Загрузить";
             button7.UseVisualStyleBackColor = true;
@@ -132,9 +140,9 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(700, 338);
             Controls.Add(button7);
             Controls.Add(button6);
             Controls.Add(label1);
@@ -144,11 +152,14 @@
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
             Text = "Form1";
             Paint += Form1_Paint_1;
             MouseClick += Form1_MouseClick;
+            MouseDown += Form1_MouseDown_1;
             MouseMove += Form1_MouseMove;
+            MouseUp += Form1_MouseUp;
             ResumeLayout(false);
             PerformLayout();
         }

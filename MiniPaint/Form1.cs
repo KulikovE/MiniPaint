@@ -16,6 +16,8 @@ namespace MiniPaint
         List<Figure> figures = new();
         bool drawing = false;
         bool clickPoint = false;
+        private bool isDrawing = false;
+        private Point previousPoint;
         public Form1()
         {
             InitializeComponent();
@@ -104,6 +106,14 @@ namespace MiniPaint
         int x; int y;
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
+            if (isDrawing)
+            {
+                using (Graphics g = this.CreateGraphics())
+                {
+                    g.DrawLine(Pens.Black, previousPoint, e.Location);
+                }
+                previousPoint = e.Location;
+            }
             label1.Text = e.X.ToString() + " " + e.Y.ToString();
         }
 
@@ -111,14 +121,14 @@ namespace MiniPaint
         {
             SbrosFlags();
             draw = DrawRectangle;
-            
+
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             SbrosFlags();
             draw = DrawCircle;
-            
+
         }
 
         private void Form1_Paint_1(object sender, PaintEventArgs e)
@@ -174,6 +184,17 @@ namespace MiniPaint
                 figures = (List<Figure>)XMLListformatter.Deserialize(fs);
             }
             Refresh();
+        }
+
+        private void Form1_MouseDown_1(object sender, MouseEventArgs e)
+        {
+            isDrawing = true;
+            previousPoint = e.Location;
+        }
+
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDrawing = false;
         }
     }
 }

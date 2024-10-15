@@ -75,7 +75,8 @@ namespace MiniPaint
         /// <summary>
         /// Цвет
         /// </summary>
-        [XmlIgnore] public Color Color { get { return color; } set { color = value; } }
+        [XmlIgnore]
+        public Color Color { get { return color; } set { color = value; } }
 
         [XmlElement("Color")]
         public string ColorHtml
