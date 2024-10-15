@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace MiniPaint
 {
-    internal class StraightLine : Figure
+    public class StraightLine : Figure
     {
         /// <summary>
         /// Конструктор для прямой линии
@@ -20,6 +20,8 @@ namespace MiniPaint
         public StraightLine(int x, int y, int x1, int y1, Pen pen) : base(x, y, x1, y1, pen)
         {
         }
+
+        public StraightLine() { }
 
         /// <summary>
         /// Переопределенный метод рисования

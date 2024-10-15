@@ -11,6 +11,9 @@ namespace MiniPaint
 {
     [Serializable]
     [XmlInclude(typeof(Rectangle))]
+    [XmlInclude(typeof(Circle))]
+    [XmlInclude(typeof(StraightLine))]
+    [XmlInclude(typeof(Color))]
     abstract public class Figure
         //: IXmlSerializable
     {
@@ -40,7 +43,7 @@ namespace MiniPaint
         /// <summary>
         /// Ручка
         /// </summary>
-       private Pen pen;    
+     //  private Pen pen;    
 
         /// <summary>
         /// Свойство доступа к координате X
@@ -54,7 +57,7 @@ namespace MiniPaint
 
 
         /// <summary>
-        /// Свойство доступа к координате x правого нижнего угла прямоугльника
+        /// Свойство доступа к координате x правого нижнего угла прямоугольника
         /// </summary>
         public int X1 { get { return x1; } set { x1 = value; } }
 
@@ -66,13 +69,20 @@ namespace MiniPaint
         /// <summary>
         /// Ручка, используемая для фигуры
         /// </summary>
-        private Pen Pencil { get { return pen; } set { pen = value; } }
+        //  private Pen Pencil { get { return pen; } set { pen = value; } }
 
 
         /// <summary>
         /// Цвет
         /// </summary>
-        public Color Color { get { return color; } set { color = color; } }
+        [XmlIgnore] public Color Color { get { return color; } set { color = value; } }
+
+        [XmlElement("Color")]
+        public string ColorHtml
+        {
+            get { return ColorTranslator.ToHtml(Color); }
+            set { Color = ColorTranslator.FromHtml(value); }
+        }
 
         public float Width { get { return width; } set { width = value; } }
 
@@ -91,7 +101,7 @@ namespace MiniPaint
             Y = y;
             X1 = x1;
             Y1 = y1;
-            Pencil = pen;
+            //Pencil = pen;
             Color = pen.Color;
             Width = pen.Width;
         }
