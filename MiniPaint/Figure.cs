@@ -73,7 +73,7 @@ namespace MiniPaint
         /// Цвет
         /// </summary>
         public Color Color { get { return color; } set { color = color; } }
-
+        //fdsfsdf
         public float Width { get { return width; } set { width = value; } }
 
 
