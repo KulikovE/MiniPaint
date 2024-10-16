@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Schema;
+﻿using System.Xml;
 using System.Xml.Serialization;
 
 namespace MiniPaint
@@ -14,8 +8,8 @@ namespace MiniPaint
     [XmlInclude(typeof(Circle))]
     [XmlInclude(typeof(StraightLine))]
     [XmlInclude(typeof(Color))]
+    [XmlInclude(typeof(Curve))]
     abstract public class Figure
-        //: IXmlSerializable
     {
         /// <summary>
         /// Координата x фигуры
@@ -38,17 +32,12 @@ namespace MiniPaint
 
         Color color;
 
-        float width;
-
-        /// <summary>
-        /// Ручка
-        /// </summary>
-     //  private Pen pen;    
+        float width;   
 
         /// <summary>
         /// Свойство доступа к координате X
         /// </summary>
-         public int X { get { return x; } set { x = value; } }
+        public int X { get { return x; } set { x = value; } }
 
         /// <summary>
         /// Свойство доступа к координате Y
@@ -65,12 +54,6 @@ namespace MiniPaint
         /// Свойство доступа к координате y правого нижнего угла прямоугольника
         /// </summary>
         public int Y1 { get { return y1; } set { y1 = value; } }
-
-        /// <summary>
-        /// Ручка, используемая для фигуры
-        /// </summary>
-        //  private Pen Pencil { get { return pen; } set { pen = value; } }
-
 
         /// <summary>
         /// Цвет

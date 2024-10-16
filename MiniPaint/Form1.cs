@@ -1,8 +1,3 @@
-using Newtonsoft.Json;
-using System.Drawing;
-using System.Numerics;
-using System.Text.Json;
-using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace MiniPaint
@@ -16,8 +11,11 @@ namespace MiniPaint
         List<Figure> figures = new();
         bool drawing = false;
         bool clickPoint = false;
-        private bool isDrawing = false;
-        private Point previousPoint;
+        private bool mousedown = false;
+        private bool drawingCurve = false;
+        private Point firstPoint;
+        private Point secondPoint;
+
         public Form1()
         {
             InitializeComponent();
@@ -39,18 +37,9 @@ namespace MiniPaint
             }
             points.Clear();
             drawing = true;
+            drawingCurve = false;
         }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void DrawCurve()
-        {
-            Graphics gr = CreateGraphics();
-
-        }
         private void DrawStraight()
         {
             Graphics g = CreateGraphics();
@@ -75,6 +64,14 @@ namespace MiniPaint
             circle.Draw(g);
         }
 
+        private void DrawCurve()
+        {
+            Graphics g = CreateGraphics();
+            Curve curve = new Curve(firstPoint.X, firstPoint.Y, secondPoint.X, secondPoint.Y, pen);
+            figures.Add(curve);
+            curve.Draw(g);
+        }
+
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             if (drawing)
@@ -95,24 +92,19 @@ namespace MiniPaint
                 }
             }
         }
-
-        private void Form1_MouseDown(object sender, MouseEventArgs e)
-        {
-            x = e.X;
-            y = e.Y;
-            Graphics graphics = CreateGraphics();
-            graphics.DrawEllipse(pen, e.X, e.Y, 1, 1);
-        }
-        int x; int y;
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isDrawing)
+            if (drawingCurve)
             {
-                using (Graphics g = this.CreateGraphics())
+                if (mousedown)
                 {
-                    g.DrawLine(Pens.Black, previousPoint, e.Location);
+                    secondPoint = firstPoint;
+                    firstPoint = e.Location;
+                    using (Graphics g = this.CreateGraphics())
+                    {
+                        draw();
+                    }
                 }
-                previousPoint = e.Location;
             }
             label1.Text = e.X.ToString() + " " + e.Y.ToString();
         }
@@ -166,8 +158,6 @@ namespace MiniPaint
         private void button6_Click(object sender, EventArgs e)
         {
             XmlSerializer XMLListformatter = new XmlSerializer(typeof(List<Figure>));
-
-            // получаем поток, куда будем записывать сериализованный объект
             using (FileStream fs = new FileStream("FiguresList.xml", FileMode.Create))
             {
                 XMLListformatter.Serialize(fs, figures);
@@ -188,13 +178,20 @@ namespace MiniPaint
 
         private void Form1_MouseDown_1(object sender, MouseEventArgs e)
         {
-            isDrawing = true;
-            previousPoint = e.Location;
+            mousedown = true;
+            firstPoint = e.Location;
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            isDrawing = false;
+            mousedown = false;
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            draw = DrawCurve;
+            drawing = false;
+            drawingCurve = true;
         }
     }
 }
