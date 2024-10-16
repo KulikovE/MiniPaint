@@ -3,13 +3,7 @@ using System.Xml.Serialization;
 
 namespace MiniPaint
 {
-    [Serializable]
-    [XmlInclude(typeof(Rectangle))]
-    [XmlInclude(typeof(Circle))]
-    [XmlInclude(typeof(StraightLine))]
-    [XmlInclude(typeof(Color))]
-    [XmlInclude(typeof(Curve))]
-    abstract public class Figure
+    abstract public class Figure : GeometryObject
     {
         /// <summary>
         /// Координата x фигуры
@@ -30,9 +24,7 @@ namespace MiniPaint
         /// </summary>
         int y1;
 
-        Color color;
-
-        float width;   
+       
 
         /// <summary>
         /// Свойство доступа к координате X
@@ -55,20 +47,9 @@ namespace MiniPaint
         /// </summary>
         public int Y1 { get { return y1; } set { y1 = value; } }
 
-        /// <summary>
-        /// Цвет
-        /// </summary>
-        [XmlIgnore]
-        public Color Color { get { return color; } set { color = value; } }
+       
 
-        [XmlElement("Color")]
-        public string ColorHtml
-        {
-            get { return ColorTranslator.ToHtml(Color); }
-            set { Color = ColorTranslator.FromHtml(value); }
-        }
-
-        public float Width { get { return width; } set { width = value; } }
+        
 
 
         /// <summary>
@@ -79,22 +60,13 @@ namespace MiniPaint
         /// <param name="x1">Вторая координата x</param>
         /// <param name="y1">Вторая координата y</param>
         /// <param name="pen">Ручка</param>
-        public Figure(int x, int y, int x1, int y1, Pen pen)
+        public Figure(int x, int y, int x1, int y1, Pen pen) : base(pen)
         {
             X = x;
             Y = y;
             X1 = x1;
             Y1 = y1;
-            //Pencil = pen;
-            Color = pen.Color;
-            Width = pen.Width;
         }
         public Figure() { }
-
-
-        /// <summary>
-        /// Абстрактный метод рисования
-        /// </summary>
-        public abstract void Draw(Graphics gr);
     }
 }

@@ -8,13 +8,14 @@ namespace MiniPaint
         Draw draw;
         Pen pen = new Pen(Color.Black, 1);
         List<Point> points = new List<Point>();
-        List<Figure> figures = new();
+        List<GeometryObject> geoObjectss = new();
         bool drawing = false;
         bool clickPoint = false;
         private bool mousedown = false;
         private bool drawingCurve = false;
         private Point firstPoint;
         private Point secondPoint;
+        List<SerializablePoint> pointsSerial;
 
         public Form1()
         {
@@ -44,7 +45,7 @@ namespace MiniPaint
         {
             Graphics g = CreateGraphics();
             StraightLine st = new(points[0].X, points[0].Y, points[1].X, points[1].Y, pen);
-            figures.Add(st);
+            geoObjectss.Add(st);
             st.Draw(g);
         }
 
@@ -52,7 +53,7 @@ namespace MiniPaint
         {
             Graphics g = CreateGraphics();
             Rectangle rc = new(points[0].X, points[0].Y, points[1].X, points[1].Y, pen);
-            figures.Add(rc);
+            geoObjectss.Add(rc);
             rc.Draw(g);
         }
 
@@ -60,15 +61,15 @@ namespace MiniPaint
         {
             Graphics g = CreateGraphics();
             Circle circle = new Circle(points[0].X, points[0].Y, points[1].X, points[1].Y, pen);
-            figures.Add(circle);
+            geoObjectss.Add(circle);
             circle.Draw(g);
         }
 
         private void DrawCurve()
         {
             Graphics g = CreateGraphics();
-            Curve curve = new Curve(firstPoint.X, firstPoint.Y, secondPoint.X, secondPoint.Y, pen);
-            figures.Add(curve);
+            //Curve curve = new Curve(firstPoint.X, firstPoint.Y, secondPoint.X, secondPoint.Y, pen);
+            geoObjectss.Add(curve);
             curve.Draw(g);
         }
 
@@ -125,7 +126,7 @@ namespace MiniPaint
 
         private void Form1_Paint_1(object sender, PaintEventArgs e)
         {
-            foreach (Figure f in figures)
+            foreach (GeometryObject f in geoObjectss)
             {
                 Graphics g = CreateGraphics();
                 f.Draw(g);
@@ -148,30 +149,30 @@ namespace MiniPaint
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (figures.Count > 0)
+            if (geoObjectss.Count > 0)
             {
-                figures.RemoveAt(figures.Count - 1);
+                geoObjectss.RemoveAt(geoObjectss.Count - 1);
                 Refresh();
             }
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            XmlSerializer XMLListformatter = new XmlSerializer(typeof(List<Figure>));
-            using (FileStream fs = new FileStream("FiguresList.xml", FileMode.Create))
+            XmlSerializer XMLListformatter = new XmlSerializer(typeof(List<GeometryObject>));
+            using (FileStream fs = new FileStream("geoObjectssList.xml", FileMode.Create))
             {
-                XMLListformatter.Serialize(fs, figures);
+                XMLListformatter.Serialize(fs, geoObjectss);
             }
 
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            figures.Clear();
-            XmlSerializer XMLListformatter = new XmlSerializer(typeof(List<Figure>));
-            using (FileStream fs = new FileStream("FiguresList.xml", FileMode.Open))
+            geoObjectss.Clear();
+            XmlSerializer XMLListformatter = new XmlSerializer(typeof(List<GeometryObject>));
+            using (FileStream fs = new FileStream("geoObjectssList.xml", FileMode.Open))
             {
-                figures = (List<Figure>)XMLListformatter.Deserialize(fs);
+                geoObjectss = (List<GeometryObject>)XMLListformatter.Deserialize(fs);
             }
             Refresh();
         }
@@ -180,6 +181,7 @@ namespace MiniPaint
         {
             mousedown = true;
             firstPoint = e.Location;
+            pointsSerial.Add(new SerializablePoint(firstPoint));
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
@@ -192,6 +194,7 @@ namespace MiniPaint
             draw = DrawCurve;
             drawing = false;
             drawingCurve = true;
+            Pencil pencil = new Pencil();
         }
     }
 }

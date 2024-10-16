@@ -1,18 +1,23 @@
 ﻿namespace MiniPaint
 {
     [Serializable]
-    public class Curve : Figure
+    public abstract class Curve : GeometryObject
     {
-        public Curve(int x, int y, int x1, int y1, Pen pen) : base(x, y, x1, y1, pen) { }
-        public Curve() { }
+        /// <summary>
+        /// Лист всех точек данной кривой (получен в промежутке между MoseDown и MouseUp)
+        /// </summary>
+        List<SerializablePoint> points;
 
 
-        public override void Draw(Graphics gr)
+        /// <summary>
+        /// Доступ к листу точек данной кривой (получен в промежутке между MoseDown и MouseUp)
+        /// </summary>
+        public List<SerializablePoint> Points {  get { return points; } set { points = value; } }
+
+        public Curve(List<SerializablePoint>points, Pen pen) : base(pen) 
         {
-            gr.DrawLine(new Pen(Color, Width), new Point(X, Y), new Point(X1, Y1));
+            Points = points;
         }
-
-
-
+        public Curve() { }
     }
 }
