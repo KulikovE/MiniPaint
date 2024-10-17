@@ -15,6 +15,10 @@
         {
         }
 
+
+        /// <summary>
+        /// Пустой конструктор
+        /// </summary>
         public Rectangle()
         {
         }
