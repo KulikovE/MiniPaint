@@ -15,6 +15,7 @@ namespace MiniPaint
         private bool drawingCurve = false;
         private Point firstPoint;
         private Point secondPoint;
+        List<SerializablePoint> pointsCurve = new List<SerializablePoint>();
 
         public Form1()
         {
@@ -67,9 +68,9 @@ namespace MiniPaint
         private void DrawCurve()
         {
             Graphics g = CreateGraphics();
-            Curve curve = new Curve(firstPoint.X, firstPoint.Y, secondPoint.X, secondPoint.Y, pen);
-            figures.Add(curve);
+            Curve curve = new Curve(0, 0, 0, 0, pen, pointsCurve);
             curve.Draw(g);
+            figures.Add(curve);
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
@@ -100,10 +101,7 @@ namespace MiniPaint
                 {
                     secondPoint = firstPoint;
                     firstPoint = e.Location;
-                    using (Graphics g = this.CreateGraphics())
-                    {
-                        draw();
-                    }
+                    pointsCurve.Add(new SerializablePoint(firstPoint));
                 }
             }
             label1.Text = e.X.ToString() + " " + e.Y.ToString();
@@ -179,12 +177,20 @@ namespace MiniPaint
         private void Form1_MouseDown_1(object sender, MouseEventArgs e)
         {
             mousedown = true;
-            firstPoint = e.Location;
+            if (drawingCurve)
+            {
+                pointsCurve = new List<SerializablePoint>();
+                pointsCurve.Add(new SerializablePoint(e.Location));
+            }
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
             mousedown = false;
+            if (drawingCurve)
+            {
+                draw();
+            }
         }
 
         private void button8_Click(object sender, EventArgs e)
