@@ -1,3 +1,4 @@
+using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace MiniPaint
@@ -78,6 +79,15 @@ namespace MiniPaint
             g.Dispose();
         }
 
+        private void DrawRubber()
+        {
+            Graphics g = CreateGraphics();
+            Rubber rubber = new Rubber(0, 0, 0, 0, pen, pointsCurve);
+            rubber.Draw(g);
+            figures.Add(rubber);
+            g.Dispose();
+        }
+
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
             if (drawing)
@@ -105,7 +115,7 @@ namespace MiniPaint
             {
                 if (mousedown)
                 {
-                   
+
                     pointsCurve.Add(new SerializablePoint(e.Location));
                 }
             }
@@ -162,23 +172,35 @@ namespace MiniPaint
 
         private void button6_Click(object sender, EventArgs e)
         {
-            XmlSerializer XMLListformatter = new XmlSerializer(typeof(List<Figure>));
-            using (FileStream fs = new FileStream("FiguresList.xml", FileMode.Create))
-            {
-                XMLListformatter.Serialize(fs, figures);
-            }
+            Save();
+        }
 
+        private void Save()
+        {
+            SaveFileDialog sv = new SaveFileDialog();
+            if (sv.ShowDialog() == DialogResult.OK)
+            {
+                XmlSerializer XMLListformatter = new XmlSerializer(typeof(List<Figure>));
+                using (FileStream fs = new FileStream(sv.FileName, FileMode.Create))
+                {
+                    XMLListformatter.Serialize(fs, figures);
+                }
+            }
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            figures.Clear();
-            XmlSerializer XMLListformatter = new XmlSerializer(typeof(List<Figure>));
-            using (FileStream fs = new FileStream("FiguresList.xml", FileMode.Open))
+            OpenFileDialog ov = new OpenFileDialog();
+            if (ov.ShowDialog() == DialogResult.OK)
             {
-                figures = (List<Figure>)XMLListformatter.Deserialize(fs);
+                figures.Clear();
+                XmlSerializer XMLListformatter = new XmlSerializer(typeof(List<Figure>));
+                using (FileStream fs = new FileStream(ov.FileName, FileMode.Open))
+                {
+                    figures = (List<Figure>)XMLListformatter.Deserialize(fs);
+                }
+                Refresh();
             }
-            Refresh();
         }
 
         private void Form1_MouseDown_1(object sender, MouseEventArgs e)
@@ -206,5 +228,28 @@ namespace MiniPaint
             drawing = false;
             drawingCurve = true;
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            draw = DrawRubber;
+            drawing = false;
+            drawingCurve = true;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Хотите сохранить ваш рисунок?", "Сохранить?", MessageBoxButtons.YesNoCancel);
+            if (dialogResult == DialogResult.Yes)
+            {
+                Graphics gr = CreateGraphics();
+                Save();
+                gr.Dispose();
+            }
+            else if (dialogResult == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
+        }
+
     }
 }
