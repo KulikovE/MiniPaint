@@ -38,11 +38,13 @@
             button6 = new Button();
             button7 = new Button();
             button8 = new Button();
+            panel1 = new Panel();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(10, 9);
+            button1.Location = new Point(3, 12);
             button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
             button1.Size = new Size(82, 22);
@@ -53,7 +55,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(98, 9);
+            button2.Location = new Point(91, 12);
             button2.Margin = new Padding(3, 2, 3, 2);
             button2.Name = "button2";
             button2.Size = new Size(131, 22);
@@ -64,7 +66,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(234, 10);
+            button3.Location = new Point(228, 10);
             button3.Margin = new Padding(3, 2, 3, 2);
             button3.Name = "button3";
             button3.Size = new Size(82, 22);
@@ -75,20 +77,20 @@
             // 
             // button4
             // 
-            button4.Location = new Point(350, 10);
+            button4.BackColor = Color.Black;
+            button4.Location = new Point(346, 4);
             button4.Margin = new Padding(3, 2, 3, 2);
             button4.Name = "button4";
-            button4.Size = new Size(82, 22);
+            button4.Size = new Size(62, 39);
             button4.TabIndex = 3;
-            button4.Text = "Цвет";
-            button4.UseVisualStyleBackColor = true;
+            button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
             // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "1px", "2px", "3px", "4px", "5px", "6px", "7px", "8px", "9px", "10px" });
-            comboBox1.Location = new Point(557, 10);
+            comboBox1.Location = new Point(539, 11);
             comboBox1.Margin = new Padding(3, 2, 3, 2);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(133, 23);
@@ -98,7 +100,7 @@
             // 
             // button5
             // 
-            button5.Location = new Point(438, 9);
+            button5.Location = new Point(437, 12);
             button5.Margin = new Padding(3, 2, 3, 2);
             button5.Name = "button5";
             button5.Size = new Size(82, 22);
@@ -119,7 +121,7 @@
             // 
             // button6
             // 
-            button6.Location = new Point(10, 50);
+            button6.Location = new Point(53, 67);
             button6.Margin = new Padding(3, 2, 3, 2);
             button6.Name = "button6";
             button6.Size = new Size(82, 22);
@@ -130,7 +132,7 @@
             // 
             // button7
             // 
-            button7.Location = new Point(121, 50);
+            button7.Location = new Point(140, 67);
             button7.Margin = new Padding(3, 2, 3, 2);
             button7.Name = "button7";
             button7.Size = new Size(82, 22);
@@ -141,7 +143,7 @@
             // 
             // button8
             // 
-            button8.Location = new Point(234, 50);
+            button8.Location = new Point(365, 67);
             button8.Margin = new Padding(3, 2, 3, 2);
             button8.Name = "button8";
             button8.Size = new Size(83, 22);
@@ -150,21 +152,33 @@
             button8.UseVisualStyleBackColor = true;
             button8.Click += button8_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.ControlLight;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(button8);
+            panel1.Controls.Add(button3);
+            panel1.Controls.Add(button4);
+            panel1.Controls.Add(button2);
+            panel1.Controls.Add(button7);
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(button5);
+            panel1.Controls.Add(button6);
+            panel1.Dock = DockStyle.Top;
+            panel1.ForeColor = SystemColors.ControlText;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(700, 93);
+            panel1.TabIndex = 10;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(700, 338);
-            Controls.Add(button8);
-            Controls.Add(button7);
-            Controls.Add(button6);
+            Controls.Add(panel1);
             Controls.Add(label1);
-            Controls.Add(button5);
-            Controls.Add(comboBox1);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
             Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
             Text = "Form1";
@@ -173,6 +187,7 @@
             MouseDown += Form1_MouseDown_1;
             MouseMove += Form1_MouseMove;
             MouseUp += Form1_MouseUp;
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -189,5 +204,6 @@
         private Button button6;
         private Button button7;
         private Button button8;
+        private Panel panel1;
     }
 }

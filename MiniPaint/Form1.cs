@@ -20,6 +20,7 @@ namespace MiniPaint
         public Form1()
         {
             InitializeComponent();
+            //DoubleBuffered = true;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
@@ -47,6 +48,7 @@ namespace MiniPaint
             StraightLine st = new(points[0].X, points[0].Y, points[1].X, points[1].Y, pen);
             figures.Add(st);
             st.Draw(g);
+            g.Dispose();
         }
 
         private void DrawRectangle()
@@ -55,6 +57,7 @@ namespace MiniPaint
             Rectangle rc = new(points[0].X, points[0].Y, points[1].X, points[1].Y, pen);
             figures.Add(rc);
             rc.Draw(g);
+            g.Dispose();
         }
 
         private void DrawCircle()
@@ -63,6 +66,7 @@ namespace MiniPaint
             Circle circle = new Circle(points[0].X, points[0].Y, points[1].X, points[1].Y, pen);
             figures.Add(circle);
             circle.Draw(g);
+            g.Dispose();
         }
 
         private void DrawCurve()
@@ -71,6 +75,7 @@ namespace MiniPaint
             Curve curve = new Curve(0, 0, 0, 0, pen, pointsCurve);
             curve.Draw(g);
             figures.Add(curve);
+            g.Dispose();
         }
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
@@ -90,6 +95,7 @@ namespace MiniPaint
                     clickPoint = true;
                     Graphics graphics = CreateGraphics();
                     graphics.DrawEllipse(new Pen(pen.Color, 1), e.X, e.Y, 1, 1);
+                    graphics.Dispose();
                 }
             }
         }
@@ -99,9 +105,8 @@ namespace MiniPaint
             {
                 if (mousedown)
                 {
-                    secondPoint = firstPoint;
-                    firstPoint = e.Location;
-                    pointsCurve.Add(new SerializablePoint(firstPoint));
+                   
+                    pointsCurve.Add(new SerializablePoint(e.Location));
                 }
             }
             label1.Text = e.X.ToString() + " " + e.Y.ToString();
@@ -127,6 +132,7 @@ namespace MiniPaint
             {
                 Graphics g = CreateGraphics();
                 f.Draw(g);
+                g.Dispose();
             }
         }
 
@@ -136,6 +142,7 @@ namespace MiniPaint
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 pen = new Pen(dlg.Color, pen.Width);
+                button4.BackColor = dlg.Color;
             }
         }
 

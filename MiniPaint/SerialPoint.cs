@@ -19,15 +19,15 @@ namespace MiniPaint
             Y = y;
         }
 
-        public SerializablePoint(System.Drawing.Point point)
+        public SerializablePoint(Point point)
         {
             X = point.X;
             Y = point.Y;
         }
 
-        public System.Drawing.Point ToPoint()
+        public Point ToPoint()
         {
-            return new System.Drawing.Point(X, Y);
+            return new Point(X, Y);
         }
     }
 }
