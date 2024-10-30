@@ -177,15 +177,15 @@ namespace MiniPaint
 
         private void Save()
         {
-                SaveFileDialog sv = new SaveFileDialog();
-                if (sv.ShowDialog() == DialogResult.OK)
+            SaveFileDialog sv = new SaveFileDialog();
+            if (sv.ShowDialog() == DialogResult.OK)
+            {
+                XmlSerializer XMLListformatter = new XmlSerializer(typeof(List<Figure>));
+                using (FileStream fs = new FileStream(sv.FileName, FileMode.Create))
                 {
-                    XmlSerializer XMLListformatter = new XmlSerializer(typeof(List<Figure>));
-                    using (FileStream fs = new FileStream(sv.FileName, FileMode.Create))
-                    {
-                        XMLListformatter.Serialize(fs, figures);
-                    }
+                    XMLListformatter.Serialize(fs, figures);
                 }
+            }
         }
         
 

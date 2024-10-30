@@ -9,6 +9,7 @@ namespace MiniPaint
     [XmlInclude(typeof(StraightLine))]
     [XmlInclude(typeof(Color))]
     [XmlInclude(typeof(Curve))]
+    [XmlInclude(typeof(Rubber))]
     abstract public class Figure
     {
         /// <summary>

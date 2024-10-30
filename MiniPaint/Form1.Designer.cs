@@ -86,7 +86,7 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "1px", "2px", "3px", "4px", "5px", "6px", "7px", "8px", "9px", "10px" });
+            comboBox1.Items.AddRange(new object[] { "1px", "2px", "3px", "4px", "5px", "6px", "7px" });
             comboBox1.Location = new Point(616, 15);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(151, 28);
