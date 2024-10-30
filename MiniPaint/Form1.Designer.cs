@@ -185,7 +185,7 @@
             Controls.Add(panel1);
             Controls.Add(label1);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Paint";
             FormClosing += Form1_FormClosing;
             Paint += Form1_Paint_1;
             MouseClick += Form1_MouseClick;
